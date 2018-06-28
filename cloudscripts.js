@@ -76,7 +76,7 @@ handlers.makeAPICall = function (args, context) {
 // This is a simple example of making a PlayFab server API call
 handlers.GiveDailyRankReward = function (args, context) 
 {
-        var updateUserDataResult = server.UpdateUserInternalData({
+        var updateUserDataResult = server.UpdateUserData({
         PlayFabId: currentPlayerId,
         Data: {
             DAILY_RANK_REWARD: 1
@@ -105,7 +105,7 @@ handlers.ClearDailyRankReward = function (args, context)
     //             Value: 0
     //         }]
     // };
-         var updateUserDataResult = server.UpdateUserInternalData({
+         var updateUserDataResult = server.UpdateUserData({
         PlayFabId: currentPlayerId,
         Data: {
             DAILY_RANK_REWARD: 1
