@@ -74,33 +74,49 @@ handlers.makeAPICall = function (args, context) {
 };
 
 // This is a simple example of making a PlayFab server API call
-handlers.GiveDailyRankReward = function (args, context) {
-    var request = {
-        PlayFabId: currentPlayerId, Statistics: [{
-                StatisticName: "REWARED_FLAG",
-                Value: 1
-            }]
-    };
+handlers.GiveDailyRankReward = function (args, context) 
+{
+        var updateUserDataResult = server.UpdateUserInternalData({
+        PlayFabId: currentPlayerId,
+        Data: {
+            DAILY_RANK_REWARD: 1
+        }
+    });
+
+    // var request = {
+    //     PlayFabId: currentPlayerId, Statistics: [{
+    //             StatisticName: "REWARED_FLAG",
+    //             Value: 1
+    //         }]
+    // };
     // The pre-defined "server" object has functions corresponding to each PlayFab server API 
     // (https://api.playfab.com/Documentation/Server). It is automatically 
     // authenticated as your title and handles all communication with 
     // the PlayFab API, so you don't have to write extra code to issue HTTP requests. 
-    var playerStatResult = server.UpdatePlayerStatistics(request);
+    //var playerStatResult = server.UpdatePlayerStatistics(request);
 };
 
 // This is a simple example of making a PlayFab server API call
-handlers.ClearDailyRankReward = function (args, context) {
-    var request = {
-        PlayFabId: currentPlayerId, Statistics: [{
-                StatisticName: "REWARED_FLAG",
-                Value: 0
-            }]
-    };
+handlers.ClearDailyRankReward = function (args, context) 
+{
+    // var request = {
+    //     PlayFabId: currentPlayerId, Statistics: [{
+    //             StatisticName: "REWARED_FLAG",
+    //             Value: 0
+    //         }]
+    // };
+         var updateUserDataResult = server.UpdateUserInternalData({
+        PlayFabId: currentPlayerId,
+        Data: {
+            DAILY_RANK_REWARD: 1
+        }
+    });
+
     // The pre-defined "server" object has functions corresponding to each PlayFab server API 
     // (https://api.playfab.com/Documentation/Server). It is automatically 
     // authenticated as your title and handles all communication with 
     // the PlayFab API, so you don't have to write extra code to issue HTTP requests. 
-    var playerStatResult = server.UpdatePlayerStatistics(request);
+    //var play/erStatResult = server.UpdatePlayerStatistics(request);
 };
 
 // This is a simple example of making a web request to an external HTTP API.
@@ -123,25 +139,6 @@ handlers.makeHTTPRequest = function (args, context) {
     // The pre-defined http object makes synchronous HTTP requests
     var response = http.request(url, httpMethod, content, contentType, headers);
     return { responseContent: response };
-};
-
-// This is a simple example of a function that is called from a
-// PlayStream event action. (https://playfab.com/introducing-playstream/)
-handlers.handlePlayStreamEventAndProfile = function (args, context) {
-    
-    // The event that triggered the action 
-    // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
-    var psEvent = context.playStreamEvent;
-    
-    // The profile data of the player associated with the event
-    // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
-    var profile = context.playerProfile;
-    
-    // Post data about the event to an external API
-    var content = JSON.stringify({ user: profile.PlayerId, event: psEvent.EventName });
-    var response = http.request('https://httpbin.org/status/200', 'post', content, 'application/json', null);
-
-    return { externalAPIResponse: response };
 };
 
 
@@ -184,7 +181,6 @@ handlers.updatePlayerMove = function (args) {
     var validMove = processPlayerMove(args);
     return { validMove: validMove };
 };
-
 
 // This is a helper function that verifies that the player's move wasn't made
 // too quickly following their previous move, according to the rules of the game.
