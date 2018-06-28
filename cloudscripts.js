@@ -73,6 +73,36 @@ handlers.makeAPICall = function (args, context) {
     var playerStatResult = server.UpdatePlayerStatistics(request);
 };
 
+// This is a simple example of making a PlayFab server API call
+handlers.GiveDailyRankReward = function (args, context) {
+    var request = {
+        PlayFabId: currentPlayerId, Statistics: [{
+                StatisticName: "REWARED_FLAG",
+                Value: 1
+            }]
+    };
+    // The pre-defined "server" object has functions corresponding to each PlayFab server API 
+    // (https://api.playfab.com/Documentation/Server). It is automatically 
+    // authenticated as your title and handles all communication with 
+    // the PlayFab API, so you don't have to write extra code to issue HTTP requests. 
+    var playerStatResult = server.UpdatePlayerStatistics(request);
+};
+
+// This is a simple example of making a PlayFab server API call
+handlers.ClearDailyRankReward = function (args, context) {
+    var request = {
+        PlayFabId: currentPlayerId, Statistics: [{
+                StatisticName: "REWARED_FLAG",
+                Value: 0
+            }]
+    };
+    // The pre-defined "server" object has functions corresponding to each PlayFab server API 
+    // (https://api.playfab.com/Documentation/Server). It is automatically 
+    // authenticated as your title and handles all communication with 
+    // the PlayFab API, so you don't have to write extra code to issue HTTP requests. 
+    var playerStatResult = server.UpdatePlayerStatistics(request);
+};
+
 // This is a simple example of making a web request to an external HTTP API.
 handlers.makeHTTPRequest = function (args, context) {
     var headers = {
