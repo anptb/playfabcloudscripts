@@ -83,6 +83,19 @@ handlers.GiveDailyRankReward = function (args, context)
         }
     });
 
+                // try to send push notification
+        try {
+            server.SendPushNotification({
+                Recipient : currentPlayerId,
+                Package : {
+                    Message : "DAILY_RANK_REWARD",
+                    Title: "You got a rewarded",
+                }
+            });
+        } catch (ex) {
+            // Target player has not registered for Push Notifications
+        }
+
     // var request = {
     //     PlayFabId: currentPlayerId, Statistics: [{
     //             StatisticName: "REWARED_FLAG",
