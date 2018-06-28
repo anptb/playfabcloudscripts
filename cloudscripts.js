@@ -86,7 +86,7 @@ handlers.GiveDailyRankReward = function (args, context)
                 // try to send push notification
         try {
             server.SendPushNotification({
-                Recipient : currentPlayerId,
+                Recipient : "B80FCD6FC228C872",
                 Package : {
                     Message : "DAILY_RANK_REWARD",
                     Title: "You got a rewarded",
