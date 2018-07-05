@@ -124,7 +124,7 @@ handlers.GiveWeeklyRankReward = function (args, context)
             server.SendPushNotification({
                 Recipient : currentPlayerId,
                 Package : {
-                    Message : "DAILY_RANK_REWARD",
+                    Message : "WEEKLY_RANK_REWARD",
                     Title: "You got a rewarded",
                 }
             });
