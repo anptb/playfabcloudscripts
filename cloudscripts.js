@@ -187,7 +187,6 @@ handlers.completedLevel = function (args, context) {
     log.debug("Updated level_monster_kills stat for player " + currentPlayerId + " to " + monstersKilled);
 };
 
-
 // In addition to the Cloud Script handlers, you can define your own functions and call them from your handlers. 
 // This makes it possible to share code between multiple handlers and to improve code organization.
 handlers.updatePlayerMove = function (args) {
