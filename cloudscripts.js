@@ -110,6 +110,42 @@ handlers.GiveDailyRankReward = function (args, context)
 };
 
 // This is a simple example of making a PlayFab server API call
+handlers.GiveWeeklyRankReward = function (args, context) 
+{
+        var updateUserDataResult = server.UpdateUserData({
+        PlayFabId: currentPlayerId,
+        Data: {
+            WEEKLY_RANK_REWARD: 1
+        }
+    });
+
+                // try to send push notification
+        try {
+            server.SendPushNotification({
+                Recipient : currentPlayerId,
+                Package : {
+                    Message : "DAILY_RANK_REWARD",
+                    Title: "You got a rewarded",
+                }
+            });
+        } catch (ex) {
+            // Target player has not registered for Push Notifications
+        }
+
+    // var request = {
+    //     PlayFabId: currentPlayerId, Statistics: [{
+    //             StatisticName: "REWARED_FLAG",
+    //             Value: 1
+    //         }]
+    // };
+    // The pre-defined "server" object has functions corresponding to each PlayFab server API 
+    // (https://api.playfab.com/Documentation/Server). It is automatically 
+    // authenticated as your title and handles all communication with 
+    // the PlayFab API, so you don't have to write extra code to issue HTTP requests. 
+    //var playerStatResult = server.UpdatePlayerStatistics(request);
+};
+
+// This is a simple example of making a PlayFab server API call
 handlers.ClearDailyRankReward = function (args, context) 
 {
     // var request = {
